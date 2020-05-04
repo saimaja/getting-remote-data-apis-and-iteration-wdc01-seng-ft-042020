@@ -12,15 +12,32 @@ def get_character_movies_from_api(character_name)
   #make the web request
   response_string = RestClient.get('http://swapi.dev/api/people')
   response_hash = JSON.parse(response_string)
-  
   results = response_hash["results"]
-  
-  character_array = results.find do |character| 
+  character_hash = results.find do |character| 
     character["name"].downcase == character_name
   end
-  character_films = character_array["films"]
   # binding.pry
+  if character_hash.nil?
+    return "Character not found. Please try again"
+  end 
+  excharacter_films = character_hash["films"]
+  character_films.each {|url| send_request(url)}
+  binding.pry
+  
 end
+
+def send_request(url)
+  # sending a request to starwars API
+  # takes url as string
+  # returns a hash of info about that film
+  response = RestClient.get(url)
+  return JSON.parse(response)
+end 
+
+
+
+
+
   
 
   
