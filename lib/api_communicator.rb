@@ -2,12 +2,6 @@ require 'rest-client'
 require 'json'
 require 'pry'
 
-# **So, the `get_character_movies_from_api` 
-# method should return an array of hashes, 
-# where each hash represents a movie.**
-
-
-
 def get_character_movies_from_api(character_name)
   #make the web request
   response_string = RestClient.get('http://swapi.dev/api/people')
@@ -47,8 +41,6 @@ end
   #  and that method will do some nice presentation stuff like puts out a list
   #  of movies by title. Have a play around with the puts with other info about a given film.
 
-
-
 def print_movies(films)
   # some iteration magic and puts out the movies in a nice list
   title = films.map {|film| film["title"]}
@@ -61,6 +53,5 @@ def show_character_movies(character)
 end
 
 ## BONUS
-
 # that `get_character_movies_from_api` method is probably pretty long. Does it do more than one job?
 # can you split it up into helper methods?
