@@ -20,11 +20,10 @@ def get_character_movies_from_api(character_name)
   if character_hash.nil?
     return "Character not found. Please try again"
   end 
-  excharacter_films = character_hash["films"]
-  character_films.each {|url| send_request(url)}
-  binding.pry
-  
+  character_films = character_hash["films"]
+  # binding.pry
 end
+
 
 def send_request(url)
   # sending a request to starwars API
@@ -34,13 +33,9 @@ def send_request(url)
   return JSON.parse(response)
 end 
 
-
-
-
-
-  
-
-  
+def array_of_film_hashes(films)
+  films.map {|film| send_request(film)}
+end
 
   # iterate over the response hash to find the collection of `films` for the given
   #   `character`
@@ -53,22 +48,16 @@ end
   #  of movies by title. Have a play around with the puts with other info about a given film.
 
 
-def get_films
-  
-end
 
-# This array of hashes is what gets 
-# passed to the `print_movies` method. 
-# This is the method in which you will 
-# iterate over that array of hashes to 
-# `puts` out movie information to the terminal.
 def print_movies(films)
   # some iteration magic and puts out the movies in a nice list
+  title = films.map {|film| film["title"]}
+  # binding.pry
 end
 
 def show_character_movies(character)
   films = get_character_movies_from_api(character)
-  print_movies(films)
+  puts print_movies(array_of_film_hashes(films))
 end
 
 ## BONUS
